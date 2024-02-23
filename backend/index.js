@@ -3,13 +3,14 @@ import express from 'express';
 import mongoose from 'mongoose';
 import userRouter from './routes/user.routes.js';
 import authRouter from './routes/auth.routes.js';
-import e from 'express';
+import cookieParser from 'cookie-parser';
 
 // Load environment variables
 dotenv.config();
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 
 // middleware
 app.use((err, req, res, next) => {

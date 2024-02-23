@@ -2,13 +2,15 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const { currentUser } = useSelector((state) => state.user);
 
   return (
     <header className='bg-slate-200 shadow-md'>
@@ -24,14 +26,23 @@ const Header = () => {
         </form>
         <div className='lg:flex hidden'>
           <ul className='flex gap-4'>
-            <li className='text-slate-700 hover:underline'>
-              <Link to="/about">About</Link>
-            </li>
-            <li className='text-slate-700 hover:underline'>
-              <Link to="/signin">Sign In</Link>
-            </li>
+            <Link to="/">
+              <li className='text-slate-700 hover:underline'>
+                About
+              </li>
+            </Link>
+            <Link to="/profile">
+              {currentUser ? (
+                <img className='rounded-full h-7 w-7 object-cover' src={currentUser.avatar} alt="avatar" />
+              ) : (
+                <li className='text-slate-700 hover:underline'>
+                  Sign In
+                </li>
+              )}
+            </Link>
           </ul>
         </div>
+
         <div className='lg:hidden'>
           <button onClick={toggleMenu}>
             {isMenuOpen ? (
@@ -46,11 +57,17 @@ const Header = () => {
         <li className='text-slate-700 hover:underline'>
           <Link to="/about">About</Link>
         </li>
-        <li className='text-slate-700 hover:underline'>
-          <Link to="/signin">Sign In</Link>
-        </li>
+        <Link to="/profile">
+          {currentUser ? (
+            <img className='rounded-full h-7 w-7 object-cover inline-block' src={currentUser.avatar} alt="avatar" />
+          ) : (
+            <li className='text-slate-700 hover:underline'>
+              Sign In
+            </li>
+          )}
+        </Link>
       </ul>
-      
+
     </header>
   );
 };
