@@ -1,11 +1,6 @@
 import { useSelector } from "react-redux";
 import { useRef, useState, useEffect } from "react";
-import {
-  getDownloadURL,
-  getStorage,
-  ref,
-  uploadBytesResumable,
-} from "firebase/storage";
+import {getDownloadURL,getStorage,ref,uploadBytesResumable,} from "firebase/storage";
 import { app } from "../firebase";
 import {
   updateUserStart,
@@ -25,19 +20,17 @@ const Profile = () => {
   const fileRef = useRef(null);
   const [file, setFile] = useState(undefined);
   const { currentUser, loading, error } = useSelector((state) => state.user);
-
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
   const [updateSuccess, setUpdateSuccess] = useState(false);
-
   const [showListingsError, setShowListingsError] = useState(false);
   const [userListings, setUserListings] = useState([]);
 
 
   const dispatch = useDispatch();
 
-  console.log(formData);
+  // console.log(formData);
   // console.log(userListings);
 
   useEffect(() => {
@@ -48,10 +41,8 @@ const Profile = () => {
 
   const handleFileUpload = (file) => {
     const storage = getStorage(app);
-
     const fileName = new Date().getTime() + file.name;
     const storageRef = ref(storage, fileName);
-
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on(
@@ -77,7 +68,7 @@ const Profile = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // it prevents the page from refreshing
     try {
       dispatch(updateUserStart());
       const res = await fetch(`/api/user/update/${currentUser._id}`, {
@@ -94,9 +85,9 @@ const Profile = () => {
         dispatch(updateUserFailure(data.message));
         return;
       }
-
       dispatch(updateUserSuccess(data));
       setUpdateSuccess(true);
+
     } catch (error) {
       dispatch(updateUserFailure(error.message));
     }
@@ -248,6 +239,7 @@ const Profile = () => {
           Create Listing
         </Link>
       </form>
+
       <div className="flex justify-between mt-5">
         <span
           onClick={handleDeleteUser}

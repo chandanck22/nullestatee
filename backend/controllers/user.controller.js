@@ -6,6 +6,7 @@ export const test = (req, res) => {
   res.send('Hello World!');
 };
 
+// Update a user
 export const updateUser = async (req, res) => {
   if (req.user.id !== req.params.id) {
     // return next(errorHandler(403, 'You can only update your account'));
@@ -33,5 +34,29 @@ export const updateUser = async (req, res) => {
 
   } catch (error) {
     return next();
+  }
+};
+
+// Delete a user
+export const deleteUser = async (req, res, next) => {
+  if (req.user.id !== req.params.id)
+    return next(errorHandler(401, "You can only delete your own account!"));
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.clearCookie("token");
+    res.status(200).json("User has been deleted...");
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+// Sign out a user
+export const signOut = async (req, res, next) => {
+  try {
+    res.clearCookie("token");
+    res.status(200).json("Signout successfully...");
+  } catch (error) {
+    next(error);
   }
 };
