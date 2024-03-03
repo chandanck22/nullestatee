@@ -62,7 +62,7 @@ const Profile = () => {
       }
     );
   };
-
+  
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
@@ -92,7 +92,7 @@ const Profile = () => {
       dispatch(updateUserFailure(error.message));
     }
   };
-
+// Delete User
   const handleDeleteUser = async () => {
     try {
       dispatch(deleteUserStart());
@@ -110,7 +110,7 @@ const Profile = () => {
       dispatch(deleteUserFailure(error.message));
     }
   };
-
+// Sign Out User
   const handleSignOut = async () => {
     try {
       dispatch(signOutUserStart());

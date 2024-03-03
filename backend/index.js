@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import userRouter from './routes/user.routes.js';
 import authRouter from './routes/auth.routes.js';
 import cookieParser from 'cookie-parser';
+import listingRouter from './routes/listing.routes.js';
 
 // Load environment variables
 dotenv.config();
@@ -25,6 +26,7 @@ app.use((err, req, res, next) => {
 
 app.use('/api/user', userRouter); 
 app.use('/api/auth', authRouter);
+app.use('/api/listing', listingRouter);
 
 // Run the server
 app.listen(3000, () => {

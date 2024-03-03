@@ -80,6 +80,7 @@ export const google = async (req, res, next) => {
   }
 };
 
+// Sign Out a user
 export const signOut = async (req, res, next) => {
   try {
     res.clearCookie('token');
