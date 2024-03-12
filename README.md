@@ -1,4 +1,4 @@
- # MERN NullEstate Application
+ # MERN NullEstate Application  **(UNDER DEVELOPMENT)**
 NullEstate is a web application designed for users to buy or rent houses. It provides a platform where sellers can upload their properties for sale or rent, while buyers can browse listings and make inquiries. The project is built using Node.js, Express, MongoDB, and Firebase for authentication.
 
 
